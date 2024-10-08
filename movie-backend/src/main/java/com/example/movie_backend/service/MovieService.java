@@ -2,6 +2,7 @@ package com.example.movie_backend.service;
 
 import com.example.movie_backend.data.ReqData.AddFavoriteMovieReqData;
 import com.example.movie_backend.data.ReqData.SaveMovieReqData;
+import com.example.movie_backend.data.ResData.core.PaginatedResData;
 import com.example.movie_backend.data.ResData.core.ResponseBaseData;
 import com.example.movie_backend.model.MovieModel;
 import org.springframework.stereotype.Service;
@@ -17,4 +18,7 @@ public interface MovieService {
     ResponseBaseData<List<MovieModel>> getAllMovies();
 
     ResponseBaseData<List<MovieModel>> searchMovies(String searchQuery);
+
+    PaginatedResData<?> getPaginatedMovies(int page, int size, String sortBy,
+                                           String sortType, String search);
 }

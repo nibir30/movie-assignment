@@ -3,6 +3,7 @@ package com.example.movie_backend.data.ResData.core;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Setter
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ResponseBaseData<T> {
+public class ResponseBaseData<T> implements Serializable {
     @JsonProperty("success")
     private Boolean success;
 
