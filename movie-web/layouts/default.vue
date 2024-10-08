@@ -1,4 +1,6 @@
 <script setup>
+import Header from "~/layouts/partial/Header.vue";
+
 const config = useRuntimeConfig().public;
 
 
@@ -16,16 +18,14 @@ useHead({
 <template>
   <div>
     <!--     Header Here-->
-    <div class="w-full border p-5">DEFAULT HEADER</div>
+    <Header></Header>
     <div class="flex flex-row">
-      <div class="flex-1 my-10 p-10">
-        <slot/>
-      </div>
+      <slot/>
       <!--        Sidebar here-->
-      <div class="border p-5">DEFAULT SIDEBAR</div>
+      <!--      <div class="border p-5">DEFAULT SIDEBAR</div>-->
     </div>
     <!--      Footer Here-->
-    <div class="w-full border p-5">DEFAULT FOOTER</div>
+    <!--    <div class="w-full border p-5">DEFAULT FOOTER</div>-->
   </div>
 </template>
 
