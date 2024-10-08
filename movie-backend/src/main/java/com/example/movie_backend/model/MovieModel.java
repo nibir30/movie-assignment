@@ -30,7 +30,7 @@ public class MovieModel {
     private Set<CastModel> casts = new HashSet<>();
 
     private LocalDate releaseDate;
-    private Integer budget;
+    private String budget;
     private String imagePath;
 
     @Column(columnDefinition = "BLOB")

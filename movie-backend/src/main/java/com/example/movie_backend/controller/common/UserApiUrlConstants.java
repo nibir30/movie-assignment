@@ -12,6 +12,9 @@ public class UserApiUrlConstants {
     public final static String MOVIE = API_URI_PREFIX + "/movie";
     public final static String SAVE_MOVIE = MOVIE + "/save";
     public final static String ALL_MOVIES = MOVIE + "/all";
+    public final static String SEARCH_MOVIES = MOVIE + "/search";
+    public final static String SAVE_FAVORITE_MOVIE = MOVIE + "/favorite/save";
+
 
     // cast
     public final static String CAST = API_URI_PREFIX + "/cast";

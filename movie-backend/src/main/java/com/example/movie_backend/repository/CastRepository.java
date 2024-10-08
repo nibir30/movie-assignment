@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface CastRepository extends JpaRepository<CastModel, Long> {
     List<CastModel> findByCastIdIn(Collection<Long> castIds);
+
+    List<CastModel> findByFullNameContainingIgnoreCase(String search);
 }

@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryModel, Long> {
     List<CategoryModel> findByCategoryIdIn(Collection<Long> categoryIds);
+
+    List<CategoryModel> findByNameContainingIgnoreCase(String search);
 }
