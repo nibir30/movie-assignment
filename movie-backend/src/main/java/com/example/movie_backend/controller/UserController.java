@@ -17,7 +17,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping(path = UserApiUrlConstants.REGISTER)
+    @PostMapping(path = UserApiUrlConstants.REGISTER)
     @ResponseBody
     public ResponseBaseData<UserModel> register(@RequestBody UserModel userModel) {
         return userService.register(userModel);

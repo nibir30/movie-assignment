@@ -29,6 +29,8 @@ public class UserServiceImpl implements UserService {
                 userModel.setUserId(IdGenerator.generateId());
                 userModel.setInsertTime(LocalDateTime.now());
             }
+            userModel.setFullName(userModel.getFirstName() + " " + userModel.getLastName());
+            
             UserModel user = userRepository.save(userModel);
             log.info("NEW USER REGISTERED: {}", user.getEmail());
 

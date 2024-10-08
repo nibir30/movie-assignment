@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @Entity(name = "category")
 public class CategoryModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
     private String name;
 
