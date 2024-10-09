@@ -11,7 +11,7 @@ onMounted(() => {
   useHead({
     // rel: 'icon', type: 'image/x-icon', href: config.IMAGE_BASE_URL + favicon_location.value,
     // link: [{rel: 'icon', type: 'image/x-icon', href: `${config.IMAGE_BASE_URL + favicon_location.value}`}],
-    title: config.APP_NAME + " Portal",
+    title: config.APP_NAME + " PORTAL",
     viewport: "width=device-width, initial-scale=1, maximum-scale=1",
     charset: "utf-8",
     meta: [
