@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
                 userModel.setInsertTime(LocalDateTime.now());
             }
             userModel.setFullName(userModel.getFirstName() + " " + userModel.getLastName());
-            
+
             UserModel user = userRepository.save(userModel);
             log.info("NEW USER REGISTERED: {}", user.getEmail());
 
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
                 return ResponseUtils.validationError("USER NOT FOUND");
             }
             UserModel user = userRepository.findByEmail(email);
-            return ResponseUtils.dataSuccess("SUCCESSFULLY LOGIN", user);
+            return ResponseUtils.dataSuccess("SUCCESSFULLY LOGGED IN", user);
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseUtils.exceptionError("COULD NOT LOGIN", e.getMessage());
