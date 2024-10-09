@@ -197,10 +197,10 @@ public class MovieServiceImpl implements MovieService {
             userRepository.save(user);
 
             return ResponseUtils.success(addFavoriteMovieReqData.getAddFavorite() ?
-                    "FAVORITE MOVIE ADDED" : "FAVORITE MOVIE REMOVED");
+                    "ADDED TO FAVORITE MOVIES" : "REMOVED FROM FAVORITE MOVIES");
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseUtils.exceptionError("COULD NOT ADD FAVORITE MOVIE", e.getMessage());
+            return ResponseUtils.exceptionError("COULD NOT ADD TO FAVORITE MOVIES", e.getMessage());
         }
     }
 

@@ -65,7 +65,7 @@ function logout() {
     <div
         class="flex flex-row gap-x-2 items-center cursor-pointer hover:bg-gray-700 rounded p-2 border border-gray-700 ">
       <font-awesome-icon class="" icon="fa-solid fa-star"/>
-      <div class="font-bold text-lg">My Favorites</div>
+      <div class="hidden md:flex font-bold text-lg">My Favorites</div>
     </div>
     <Button class="visible md:hidden text-black" size="sm" variant="secondary">
       <font-awesome-icon icon="fa-solid fa-magnifying-glass"/>

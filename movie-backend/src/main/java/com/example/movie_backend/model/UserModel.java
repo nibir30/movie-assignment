@@ -19,9 +19,10 @@ import java.util.Set;
 @Builder
 @Entity(name = "user")
 public class UserModel {
+    @ManyToMany(targetEntity = MovieModel.class, cascade = {CascadeType.MERGE})
+    Set<MovieModel> favoriteMovies = new HashSet<>();
     @Id
     private Long userId;
-
     @Column(unique = true)
     private String email;
     private String firstName;
@@ -29,9 +30,6 @@ public class UserModel {
     private String fullName;
     private String gender;
     private LocalDate dob;
-    @OneToMany(targetEntity = CastModel.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
-    Set<MovieModel> favoriteMovies = new HashSet<>();
-
     @JsonIgnore
     private LocalDateTime insertTime;
     @JsonIgnore
