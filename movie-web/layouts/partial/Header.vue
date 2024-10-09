@@ -5,7 +5,6 @@ import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger,} from '@/com
 
 const router = useRouter()
 onMounted(() => {
-  // loadUser(); // Load user from localStorage on page load
   const user = localStorage.getItem('user')
   if (user) {
     toggleUser(JSON.parse(user))
