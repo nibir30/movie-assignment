@@ -48,7 +48,11 @@ async function logout() {
 }
 
 async function goToWishList() {
-  await router.push({path: "/my-favorites"})
+  if (userInfo.value) {
+    await router.push({path: "/my-favorites"})
+  } else {
+    showLogin.value = true
+  }
 }
 
 async function goToHome() {

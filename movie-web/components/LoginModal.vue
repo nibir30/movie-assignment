@@ -83,6 +83,8 @@ async function doRegister() {
       dob: form.dob,
       gender: form.gender,
     }
+
+    console.log(payload)
     let response = await register(payload);
 
     isLoading.value = false
@@ -204,7 +206,13 @@ function clear() {
             <Label class="text-right" for="name">
               Birthday
             </Label>
-            <Input id="name" v-model="form.dob" class="col-span-3"/>
+            <div class="col-span-3">
+              <VDatePicker v-model="form.dob" auto-apply>
+                <template #default="{ inputValue, inputEvents }">
+                  <Input id="name" :value="inputValue" v-on="inputEvents"/>
+                </template>
+              </VDatePicker>
+            </div>
           </div>
         </div>
 

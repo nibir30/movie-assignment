@@ -5,8 +5,9 @@ export default defineNuxtConfig({
         '@fortawesome/fontawesome-svg-core/styles.css'
     ],
     modules: [
-        '@nuxtjs/tailwindcss',
-        'shadcn-nuxt',
+      '@nuxtjs/tailwindcss',
+      'shadcn-nuxt',
+      '@samk-dev/nuxt-vcalendar',
     ],
     shadcn: {
         prefix: '',
