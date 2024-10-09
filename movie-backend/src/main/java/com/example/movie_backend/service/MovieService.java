@@ -19,6 +19,8 @@ public interface MovieService {
 
     ResponseBaseData<List<MovieModel>> searchMovies(String searchQuery);
 
+    ResponseBaseData<List<MovieModel>> getFavoriteMovies(String email, String search);
+
     PaginatedResData<?> getPaginatedMovies(int page, int size, String sortBy,
                                            String sortType, String search);
 }

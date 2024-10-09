@@ -47,6 +47,47 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public ResponseBaseData<List<MovieModel>> getFavoriteMovies(String email, String search) {
+        try {
+            UserModel userModel = userRepository.findByEmail(email);
+            if (userModel == null) {
+                return ResponseUtils.validationError("PLEASE LOGIN WITH VALID USER");
+            }
+            List<MovieModel> movieModels = userModel.getFavoriteMovies().stream().toList();
+
+            if (search == null || search.isEmpty()) {
+                return ResponseUtils.dataSuccess("YOUR FAVORITE MOVIES", movieModels);
+            }
+            Set<MovieModel> result = new HashSet<>();
+
+            for (MovieModel movie : movieModels) {
+                for (CategoryModel category : movie.getCategories()) {
+                    if (category.getName().toLowerCase().contains(search.toLowerCase())) {
+                        result.add(movie);
+                    }
+                }
+                for (CastModel cast : movie.getCasts()) {
+                    if (cast.getFullName().toLowerCase().contains(search.toLowerCase())) {
+                        result.add(movie);
+                    }
+                }
+
+                if (movie.getTitle().toLowerCase().contains(search.toLowerCase())) {
+                    result.add(movie);
+                }
+            }
+            List<MovieModel> movieModelList = new ArrayList<>(result.stream().toList());
+            movieModelList.sort(Comparator.comparing(MovieModel::getTitle));
+
+            return ResponseUtils.dataSuccess("YOUR FAVORITE MOVIES WITH SEARCH", movieModelList);
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseUtils.exceptionError("COULD NOT GET FAVORITE MOVIES", e.getMessage());
+        }
+    }
+
+    @Override
     public PaginatedResData<?> getPaginatedMovies(int page, int size, String sortBy,
                                                   String sortType, String search) {
         try {

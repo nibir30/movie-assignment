@@ -1,6 +1,20 @@
 export default () => {
     const config = useRuntimeConfig().public;
 
+    const getFavoriteMovies = (param) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const data = await $fetch(config.API_BASE_URL + '/movie/favorite', {
+                    method: 'GET',
+                    params: param
+                })
+                resolve(data || [])
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
     const getMoviesPaginated = (param) => {
         return new Promise(async (resolve, reject) => {
             try {
@@ -30,6 +44,7 @@ export default () => {
     }
 
     return {
+        getFavoriteMovies,
         addToFavorite,
         getMoviesPaginated,
     }

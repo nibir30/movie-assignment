@@ -1,15 +1,9 @@
 <script setup>
 
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet'
+import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger,} from '@/components/ui/sheet'
 
+const router = useRouter()
 onMounted(() => {
   // loadUser(); // Load user from localStorage on page load
   const user = localStorage.getItem('user')
@@ -43,31 +37,39 @@ function toggleUser(user) {
   }
 }
 
-function logout() {
+async function logout() {
+  window.dispatchEvent(new CustomEvent('user-changed', {
+    detail: {
+      user: null
+    }
+  }));
   localStorage.clear()
   toggleUser(null)
+  await router.push({path: "/"})
+}
+
+async function goToWishList() {
+  await router.push({path: "/my-favorites"})
+}
+
+async function goToHome() {
+  await router.push({path: "/"})
 }
 </script>
 
 <template>
   <div class="px-5 py-2 flex flex-row bg-gray-800 text-white gap-x-2 items-center justify-between">
-    <div class="font-bold flex-1 text-3xl">
+    <div class="font-bold flex-1 text-3xl cursor-pointer" @click="goToHome">
       MOVIESTAR
-    </div>
-    <div class="hidden md:flex max-w-96 w-full relative items-center">
-      <Input id="search" class="pl-8 text-black" placeholder="Search for movies, stars, categories..." type="text"/>
-      <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
-      <font-awesome-icon class="text-black" icon="fa-solid fa-magnifying-glass"/>
-    </span>
     </div>
     <!--    <Input class="hidden md:flex max-w-96 text-black" placeholder="Search for movies, stars, categories..."></Input>-->
 
-    <div
-        class="flex flex-row gap-x-2 items-center cursor-pointer hover:bg-gray-700 rounded p-2 border border-gray-700 ">
+    <div class="flex flex-row gap-x-2 items-center cursor-pointer hover:bg-gray-700 rounded p-2 border border-gray-700 "
+         @click="goToWishList">
       <font-awesome-icon class="" icon="fa-solid fa-star"/>
-      <div class="hidden md:flex font-bold text-lg">My Favorites</div>
+      <div class="hidden md:flex font-bold text-lg" to="/my-favorites">My Favorites</div>
     </div>
-    <Button class="visible md:hidden text-black" size="sm" variant="secondary">
+    <Button class="visible md:hidden text-black" size="sm" variant="secondary" @click="goToWishList">
       <font-awesome-icon icon="fa-solid fa-magnifying-glass"/>
     </Button>
 

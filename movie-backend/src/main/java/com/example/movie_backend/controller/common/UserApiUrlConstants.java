@@ -15,6 +15,7 @@ public class UserApiUrlConstants {
     public final static String SEARCH_MOVIES = MOVIE + "/search";
     public final static String PAGINATED_MOVIES = MOVIE + "/paginated";
     public final static String SAVE_FAVORITE_MOVIE = MOVIE + "/favorite/save";
+    public final static String FAVORITE_MOVIES = MOVIE + "/favorite";
 
 
     // cast

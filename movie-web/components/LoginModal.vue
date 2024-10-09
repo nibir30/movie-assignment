@@ -35,14 +35,17 @@ async function doLogin() {
 
   try {
     const payload = {email: email.value.trim()}
-    const response = await login(payload);
+    let response = await login(payload);
 
     isLoading.value = false
 
     if (response && response.success) {
       userInfo.value = response.data
       // setUser(response.data)
-      localStorage.setItem("user", JSON.stringify(userInfo.value))
+      const movieIds = response.data.favoriteMovies.map(movie => movie.movieId);
+      response.data.favoriteMovies = null
+      response.data.favoriteMovieIds = movieIds
+      localStorage.setItem("user", JSON.stringify(response.data))
       window.dispatchEvent(new CustomEvent('user-changed', {
         detail: {
           user: response.data

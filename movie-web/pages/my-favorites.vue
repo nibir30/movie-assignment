@@ -10,17 +10,13 @@ import {
   DialogTrigger
 } from "~/components/ui/dialog";
 
-const {getMoviesPaginated, addToFavorite} = movieService();
+const {addToFavorite, getFavoriteMovies} = movieService();
 
 onMounted(async () => {
   const user = localStorage.getItem("user");
   if (user) {
     userInfo.value = JSON.parse(user);
   }
-  window.addEventListener('user-changed', (event) => {
-    const user = event.detail.user
-    userInfo.value = user
-  });
   await fetchMovies()
 });
 
@@ -38,15 +34,14 @@ async function fetchMovies() {
   isLoading.value = true
   try {
     const payload = {
-      page: page.value,
-      per_page: 100,
+      email: userInfo.value.email,
       search: search.value,
     }
-    const response = await getMoviesPaginated(payload);
+    const response = await getFavoriteMovies(payload);
     isLoading.value = false
 
     if (response.success) {
-      allMovies.value = response.data.data
+      allMovies.value = response.data
     }
 
   } catch (e) {
@@ -75,6 +70,7 @@ async function addMovieToFavorite(movieID, addFavorite) {
         userInfo.value.favoriteMovieIds = userInfo.value.favoriteMovieIds.filter(movieId => movieId !== movieID);
         localStorage.setItem("user", JSON.stringify(userInfo.value));
       }
+      await fetchMovies();
     } else {
       useNuxtApp().$toast.error(response.message);
     }
@@ -99,7 +95,7 @@ watch(search, async () => {
     <Header></Header>
     <div class="mx-4 sm:mx-16 lg:mx-28 my-4 flex flex-col">
       <div class="flex flex-wrap gap-x-4 justify-between items-center">
-        <div class="font-bold text-2xl">MOVIESTAR Charts</div>
+        <div class="font-bold text-2xl">Your Favorites</div>
 
         <div class="max-w-96 w-full relative items-center">
           <Input id="search" v-model="search" class="pl-8 text-black"
@@ -111,6 +107,10 @@ watch(search, async () => {
       </div>
       <div v-if="allMovies.length === 0 && search !== ''" class="mt-14 border rounded-xl p-4 font-bold text-red-700">
         NO MOVIES FOUND RELATED '{{ search }}'
+      </div>
+      <div v-else-if="allMovies.length === 0"
+           class="mt-14 border rounded-xl p-4 font-bold text-yellow-700">
+        YOU HAVEN'T ADDED ANY MOVIE AS YOUR FAVORITE
       </div>
       <div v-else class="mt-5 border rounded-xl grid md:grid-cols-2 lg:grid-cols-3 gap-2 p-4">
         <div v-for="(movie,index) in allMovies" class="border flex flex-row">
@@ -140,7 +140,7 @@ watch(search, async () => {
 
             <div class="mt-1">Budget: <span class="text-green-800 font-semibold">{{ movie.budget }}</span></div>
 
-            <div class="md:mt-auto flex flex-wrap gap-x-2">
+            <div class=" md:mt-auto flex flex-wrap gap-x-2">
               <Dialog>
                 <DialogTrigger>
                   <Button class="mt-4 text-white px-4 justify-center flex flex-row gap-x-2 w-24" size="xs">
@@ -192,19 +192,13 @@ watch(search, async () => {
                 </DialogContent>
               </Dialog>
 
-
-              <Button v-if="userInfo == null || !userInfo.favoriteMovieIds.includes(movie.movieId)"
-                      class="mt-4 text-white px-4 justify-center flex flex-row gap-x-2 w-24"
-                      size="xs" variant="destructive" @click="addMovieToFavorite(movie.movieId,true)">
-                <font-awesome-icon class="" icon="fa-regular fa-star"/>
-                <div>Add</div>
-              </Button>
-              <Button v-else
-                      class="mt-4 text-white px-4 justify-center flex flex-row gap-x-2"
+              <Button class="mt-4 text-white px-4 justify-center flex flex-row gap-x-2"
                       size="xs" variant="destructive" @click="addMovieToFavorite(movie.movieId,false)">
                 <font-awesome-icon icon="fa-solid fa-star"/>
               </Button>
             </div>
+
+
           </div>
         </div>
       </div>

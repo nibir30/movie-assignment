@@ -40,6 +40,13 @@ public class MovieController {
         return movieService.addFavoriteMovie(addFavoriteMovieReqData);
     }
 
+    @GetMapping(path = UserApiUrlConstants.FAVORITE_MOVIES)
+    @ResponseBody
+    public ResponseBaseData<List<MovieModel>> searchMovies(
+            @RequestParam String email, @RequestParam(required = false) String search) {
+        return movieService.getFavoriteMovies(email, search);
+    }
+
     @GetMapping(path = UserApiUrlConstants.SEARCH_MOVIES)
     @ResponseBody
     public ResponseBaseData<List<MovieModel>> searchMovies(@RequestParam String query) {
